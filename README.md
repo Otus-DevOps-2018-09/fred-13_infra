@@ -13,3 +13,8 @@ Host someinternalhost
 # Теперь при подключении используем команду: 
 
 ssh someinternalhost
+
+# Данные для подключения к серверам:
+
+bastion_IP = 35.240.108.74
+someinternalhost_IP = 10.132.0.4
