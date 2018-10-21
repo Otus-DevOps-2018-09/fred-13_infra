@@ -2,13 +2,13 @@
     "builders": [
         {
             "type": "googlecompute",
-            "project_id": "{{user `project_fred`}}",
+            "project_id": "{{user `project_fred_13`}}",
             "image_name": "reddit-base-{{timestamp}}",
             "image_family": "reddit-base",
-            "source_image_family": "{{user `source_image_fred`}}",
+            "source_image_family": "{{user `source_image_fred_13`}}",
             "zone": "europe-west1-b",
             "ssh_username": "appuser",
-            "machine_type": "{{user `machine_type_fred`}}"
+            "machine_type": "{{user `machine_type_fred_13`}}"
         }
     ],
     "provisioners": [
