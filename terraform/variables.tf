@@ -24,7 +24,7 @@ variable zone_app {
   default     = "europe-west1-b"
 }
 
-variable count {
-  description = "Count"
+variable count_instance {
+  description = "Count instances"
   default     = "1"
 }

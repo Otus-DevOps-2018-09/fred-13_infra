@@ -5,11 +5,11 @@ provider "google" {
 }
 
 resource "google_compute_instance" "app" {
-  name         = "reddit-app-${count.index}"
+  name         = "reddit-app-${count.index+1}"
   machine_type = "g1-small"
   zone         = "${var.zone_app}"
   tags         = ["reddit-app"]
-  count        = "${var.count}"
+  count        = "${var.count_instance}"
 
   # определение загрузочного диска
   boot_disk {
