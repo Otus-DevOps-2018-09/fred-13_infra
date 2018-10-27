@@ -22,7 +22,7 @@ resource "google_compute_instance" "app" {
   access_config {}
  }
   metadata {
-    ssh-keys = "appuser:${file("~/.ssh/appuser.pub")}"
+    ssh-keys = "appuser:${file(var.public_key_path)}"
   }
 
 connection {
