@@ -1,8 +1,8 @@
 variable project {
-  description = "Project ID"
+  description = "second-casing-218612"
 }
 variable region {
-  description = "Region"
+  description = "region"
   default = "europe-west1"
 }
 variable public_key_path {
