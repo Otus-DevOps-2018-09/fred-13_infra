@@ -9,6 +9,7 @@ resource "google_compute_instance" "app" {
   machine_type = "g1-small"
   zone         = "${var.zone_app}"
   tags         = ["reddit-app"]
+  count        = "${var.count}"
 
   # определение загрузочного диска
   boot_disk {
