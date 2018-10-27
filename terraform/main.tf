@@ -1,7 +1,7 @@
 provider "google" {
   version = "1.4.0"
-  project = "second-casing-218612"
-  region  = "europe-west1"
+  project = "${var.project}"
+  region  = "${var.region}"
 }
 resource "google_compute_instance" "app" {
   name = "reddit-app"
