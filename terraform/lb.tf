@@ -1,56 +1,67 @@
-resource "google_compute_instance_group" "apps-node-cluster" {
-  name        = "apps-node-cluster"
-  description = "Terraform instance group"
+resource "google_compute_instance_group" "lb" {
+  name        = "lb"
+  description = "LoadBalancer"
 
-  instances = [
-    "${google_compute_instance.app.*.self_link}",
-  ]
+  instances = ["${google_compute_instance.app.*.self_link}"]
 
   named_port {
-    name = "puma"
+    name = "port"
     port = "9292"
   }
 
   zone = "${var.zone_app}"
 }
 
-resource "google_compute_health_check" "reddit-servers-health" {
-  name               = "reddit-servers-health"
+resource "google_compute_http_health_check" "reddit-hc" {
+  name               = "reddit-hc"
+  request_path       = "/"
+  port               = "9292"
   check_interval_sec = 5
-  timeout_sec        = 5
-
-  tcp_health_check {
-    port = "9292"
-  }
+  timeout_sec        = 3
 }
 
-resource "google_compute_backend_service" "reddit-backend" {
-  name                            = "reddit-backend"
-  description                     = "Destinastion WEB"
-  protocol                        = "HTTP"
-  port_name                       = "puma"
-  timeout_sec                     = 10
-  connection_draining_timeout_sec = 10
+resource "google_compute_backend_service" "reddit-back" {
+  name          = "reddit-back"
+  port_name     = "reddit-port"
+  protocol      = "HTTP"
+  timeout_sec   = 5
+  health_checks = ["${google_compute_http_health_check.reddit-hc.self_link}"]
 
   backend {
-    group = "${google_compute_instance_group.apps-node-cluster.self_link}"
+    group = "${google_compute_instance_group.lb.self_link}"
+  }
+}
+
+resource "google_compute_global_forwarding_rule" "reddit-rule" {
+  name        = "reddit-rule"
+  description = "reddit-rule"
+  target      = "${google_compute_target_http_proxy.proxy.self_link}"
+  port_range  = "80"
+}
+
+resource "google_compute_target_http_proxy" "proxy" {
+  name        = "proxy"
+  description = "proxy"
+  url_map     = "${google_compute_url_map.url-map.self_link}"
+}
+
+resource "google_compute_url_map" "url-map" {
+  name            = "url-map"
+  description     = "url-map"
+  default_service = "${google_compute_backend_service.reddit-back.self_link}"
+
+  host_rule {
+    hosts        = ["*"]
+    path_matcher = "allpaths"
   }
 
-  health_checks = ["${google_compute_health_check.reddit-servers-health.self_link}"]
-}
+  path_matcher {
+    name            = "allpaths"
+    default_service = "${google_compute_backend_service.reddit-back.self_link}"
 
-resource "google_compute_url_map" "reddit_url" {
-  name            = "reddit-url"
-  default_service = "${google_compute_backend_service.reddit-backend.self_link}"
-}
-
-resource "google_compute_target_http_proxy" "reddit_proxy" {
-  name    = "reddit-proxy"
-  url_map = "${google_compute_url_map.reddit_url.self_link}"
-}
-
-resource "google_compute_global_forwarding_rule" "reddit_rule" {
-  name       = "reddit-rule"
-  target     = "${google_compute_target_http_proxy.reddit_proxy.self_link}"
-  port_range = "80"
+    path_rule {
+      paths   = ["/*"]
+      service = "${google_compute_backend_service.reddit-back.self_link}"
+    }
+  }
 }
