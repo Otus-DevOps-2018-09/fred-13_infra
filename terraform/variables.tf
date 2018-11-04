@@ -19,7 +19,7 @@ variable private_key_path {
   description = "Path to the PRIVITE key used for ssh access"
 }
 
-variable zone_app {
+variable zone {
   description = "Zone"
   default     = "europe-west1-b"
 }
