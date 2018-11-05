@@ -1,6 +1,33 @@
 # fred-13_infra
 fred-13 Infra repository
 
+#--------------------Homework 8 -------------------
+
+1. Создал ветку ansible-1.
+2. Установил Ansible 2.7 паекетным менеджером "pip install -r requirements.txt"
+3. Создал проект с помощью terraform из stage модуля.
+4. Прописал хосты в inventory и отработал команды по проверке коннекта к этим хостам "ansible appserver -i ./inventory -m ping".
+5. Прописал значения по умолчанию в ansible.cfg и подкорректировал inventory.
+6. Создал файл inventory.yml отработал команды по проверке коннекта к этим хостам "ansible all -m ping -i inventory.yml"
+7. Проверил выполнение команд command и shell
+8. Создал файл clone.yml для клонирование репозитория.
+9. Вывод "ansible-playbook clone.yml"
+
+Наблюдение: 
+сначало "ansible app -m command -a 'rm -rf ~/reddit'" 
+затем: " ansible-playbook clone.yml"
+
+TASK [Clone repo] **********************************************************
+changed: [appserver]
+
+PLAY RECAP *****************************************************************
+appserver                  : ok=2    changed=1    unreachable=0    failed=0
+
+10. Выполнены задания со *
+
+#--------------------------------------------------
+
+
 #--------------------Homework 7 -------------------
 
 1. Создана ветка terraform-2.
