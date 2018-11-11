@@ -1,5 +1,5 @@
     {
-        "project_fred_13": "my-project-in-goocle-cloud",
+    "project_fred_13": "my-project-in-goocle-cloud",
 	"source_image_fred_13": "ubuntu-1604-lts",
 	"machine_type_fred_13": "f1-micro"
     }
