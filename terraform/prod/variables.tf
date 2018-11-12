@@ -31,10 +31,10 @@ variable count_instance {
 
 variable app_disk_image {
   description = "Disk image for reddit app"
-  default     = "reddit-app-base-20181104-123405"
+  default     = "reddit-app-base-20181105-135305"
 }
 
 variable db_disk_image {
   description = "Disk image for reddit db"
-  default     = "reddit-db-base-20181104-125230"
+  default     = "reddit-db-base-20181105-135924"
 }
