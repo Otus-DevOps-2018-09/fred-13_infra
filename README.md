@@ -1,6 +1,25 @@
 # fred-13_infra
 fred-13 Infra repository
 
+#------------------- Homework 11 -------------------
+
+1) Создана новая ветка ansible-4
+2) Установлены VirtualBox и Vagrant
+3) Создан файл Vagrantfile с описанием двух ВМ APP и DB
+4) Добавление провижинера в Vagrantfile с помощью Ansible для установки python на ноды
+5) Доработка роли установки mongo на dbserver
+6) Доработка роли установки ruby и puma на ноду appserver
+7) Параметизировал конфигурацию пользователя для деплоя
+8) Переопределил переменную extra_vars как vagrant
+9) Установка molecule, testinfra и python-vagrant
+10) Тестирование db роли с помощью molecule
+11) Модификация тестирования в db/molecule/default/tests/test_default.py
+12) Модификация тестирования в db/molecule/default/playbook.yml
+13) Выполнил задания для самостоятельной работы
+
+#---------------------------------------------------
+
+
 #------------------- Homework 10 -------------------
 
 1. Создана ветка ansible-3
